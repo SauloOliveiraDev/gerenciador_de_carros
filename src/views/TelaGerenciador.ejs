@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de carros</title>
+    <link rel="stylesheet" href="/css/Telagerenciador.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Gerenciamento de Veículos WallPark</h1>
+
+      <div class="formulario">
+        <h2>Registrar Veículo</h2>
+        <input
+          type="text"
+          id="placa"
+          placeholder="Digite a placa do veículo"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="marca"
+          placeholder="Digite a marca do veículo"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="modelo"
+          placeholder="Digite o modelo do veículo"
+          autocomplete="off"
+        />
+        <input
+          type="text"
+          id="ano"
+          placeholder="Digite o ano do veículo"
+          autocomplete="off"
+        />
+        <button id="btn-registrar">Registrar</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+          </tr>
+        </thead>
+        <tbody id="historico">
+          <!-- Inserir os dados dos veículos aqui -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="/js/index.js"></script>
+  </body>
+</html>
