@@ -7,6 +7,7 @@ const path = require("path")
 
 const app = express();
 const port = 3000;
+let db;
 
 const dbInit = mysql.createConnection({
   host: "localhost",
@@ -25,7 +26,7 @@ dbInit.query("CREATE DATABASE IF NOT EXISTS carros_saulo", (err) => {
   dbInit.end(); // Fecha a conexão inicial
 
   // Agora sim, conectar ao banco de dados correto
-  const db = mysql.createConnection({
+  db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
@@ -40,15 +41,15 @@ dbInit.query("CREATE DATABASE IF NOT EXISTS carros_saulo", (err) => {
     console.log("Conectado ao MySQL!");
 
     // Executar o script SQL para criar tabelas
-    executarSQL(db);
+    executarSQL();
   });
 
   // Função para executar o SQL do arquivo
-  function executarSQL(dbConn) {
+  function executarSQL() {
     const sqlPath = path.join(__dirname, 'src/database/criacao_db.sql');
     const sql = fs.readFileSync(sqlPath, 'utf8');
 
-    dbConn.query(sql, (err) => {
+    db.query(sql, (err) => {
       if (err) {
         console.error("Erro ao executar script SQL:", err);
       } else {
