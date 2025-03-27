@@ -1,6 +1,6 @@
-CREATE DATABASE wallpark;
+CREATE DATABASE carros_saulo;
 
-USE wallpark;
+USE carros_saulo;
 
 CREATE TABLE veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
