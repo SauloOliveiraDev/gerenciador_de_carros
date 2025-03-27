@@ -2,24 +2,62 @@ const express = require("express");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fs = require("fs");
+const path = require("path")
 
 const app = express();
 const port = 3000;
 
-// Configuração do banco de dados
-const db = mysql.createConnection({
+const dbInit = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
-  database: "carros_saulo",
+  password: ""
 });
 
-db.connect((err) => {
+// Criar o banco de dados se não existir
+dbInit.query("CREATE DATABASE IF NOT EXISTS carros_saulo", (err) => {
   if (err) {
-    return console.error("Erro ao conectar ao MySQL:", err);
+    console.error("Erro ao criar banco de dados:", err);
+  } else {
+    console.log("Banco de dados verificado/criado com sucesso!");
   }
-  console.log("Conectado ao MySQL!");
+
+  dbInit.end(); // Fecha a conexão inicial
+
+  // Agora sim, conectar ao banco de dados correto
+  const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "carros_saulo",
+    multipleStatements: true
+  });
+
+  db.connect((err) => {
+    if (err) {
+      return console.error("Erro ao conectar ao MySQL:", err);
+    }
+    console.log("Conectado ao MySQL!");
+
+    // Executar o script SQL para criar tabelas
+    executarSQL(db);
+  });
+
+  // Função para executar o SQL do arquivo
+  function executarSQL(dbConn) {
+    const sqlPath = path.join(__dirname, 'src/database/criacao_db.sql');
+    const sql = fs.readFileSync(sqlPath, 'utf8');
+
+    dbConn.query(sql, (err) => {
+      if (err) {
+        console.error("Erro ao executar script SQL:", err);
+      } else {
+        console.log("Tabelas criadas/verificadas com sucesso!");
+      }
+    });
+  }
 });
+
 
 app.use(cors());
 app.use(bodyParser.json());
