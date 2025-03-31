@@ -2,12 +2,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnRegistrar = document.getElementById("btn-registrar");
   const historico = document.getElementById("historico");
   let veiculoEditando = null;
+  let estadoBotao = 0;
+  let subTitulo = document.getElementById("subTitulo");
 
   async function carregarVeiculos() {
     const response = await fetch("/api/veiculos");
     const veiculos = await response.json();
     atualizarTabela(veiculos);
   }
+
+  btnRegistrar.addEventListener("mouseenter", () => {
+    if(estadoBotao == 0){
+      btnRegistrar.style.backgroundColor = "#0056b3";
+    }else{
+      btnRegistrar.style.backgroundColor = "rgb(214, 139, 0)";
+    }
+  });
+  btnRegistrar.addEventListener("mouseleave", () => {
+    if(estadoBotao == 0){
+      btnRegistrar.style.backgroundColor = "#007bff"
+    }else{
+      btnRegistrar.style.backgroundColor = "orange";
+    }
+  });
 
   btnRegistrar.addEventListener("click", async function () {
     const placa = document.getElementById("placa").value.trim();
@@ -32,6 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Veículo atualizado com sucesso!");
         veiculoEditando = null;
         btnRegistrar.textContent = "Registrar"; // Volta ao estado original
+        btnRegistrar.style.backgroundColor = "#007bff"
+        subTitulo.textContent = "Registrar Veículo"
+        estadoBotao = 0;
       } else {
         alert("Erro ao atualizar veículo!");
       }
@@ -100,6 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("ano").value = veiculo.ano;
 
     btnRegistrar.textContent = "Alterar";
+    btnRegistrar.style.backgroundColor = "orange";
+    subTitulo.textContent = "Alterar Veículo"
+    estadoBotao = 1;
+    const btnRemover = document.querySelector(".btn-remover");
+    btnRemover.disabled = true; 
   }
 
   function limparCampos() {
@@ -110,6 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     veiculoEditando = null;
     btnRegistrar.textContent = "Registrar";
+    const btnRemover = document.querySelector(".btn-remover");
+    btnRemover.disabled = false;
   }
 
   carregarVeiculos();
