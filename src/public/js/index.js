@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let veiculoEditando = null;
   let estadoBotao = 0;
   let subTitulo = document.getElementById("subTitulo");
+  const anoAtual = new Date().getFullYear();
+
+
 
   async function carregarVeiculos() {
     const response = await fetch("/api/veiculos");
@@ -38,40 +41,56 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (veiculoEditando) {
-      // Atualizar veículo existente
-      const response = await fetch(`/api/veiculos/${veiculoEditando.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ placa, marca, modelo, ano }),
-      });
+      if(placa.length <= 7 && ano <= anoAtual){
+        // Atualizar veículo existente
+        const response = await fetch(`/api/veiculos/${veiculoEditando.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ placa, marca, modelo, ano }),
+        });
 
-      if (response.ok) {
-        alert("Veículo atualizado com sucesso!");
-        veiculoEditando = null;
-        btnRegistrar.textContent = "Registrar"; // Volta ao estado original
-        btnRegistrar.style.backgroundColor = "#007bff"
-        subTitulo.textContent = "Registrar Veículo"
-        estadoBotao = 0;
-      } else {
-        alert("Erro ao atualizar veículo!");
+        if (response.ok) {
+          alert("Veículo atualizado com sucesso!");
+          veiculoEditando = null;
+          btnRegistrar.textContent = "Registrar"; // Volta ao estado original
+          btnRegistrar.style.backgroundColor = "#007bff"
+          subTitulo.textContent = "Registrar Veículo"
+          estadoBotao = 0;
+
+          carregarVeiculos();
+          limparCampos();
+        } else {
+          alert("Erro ao atualizar veículo!");
+        }
+
+      }else if(placa.length > 7){
+        alert("A placa do veiculo excede o limite de 7 caracteres!")
+      }else if(ano > anoAtual){
+        alert(`O ano inserido é invalido!`)
       }
     } else {
       // Registrar novo veículo
-      const response = await fetch("/api/veiculos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ placa, marca, modelo, ano }),
-      });
+      if(placa.length <= 7 && ano <= anoAtual){
+        const response = await fetch("/api/veiculos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ placa, marca, modelo, ano }),
+        });
 
-      if (response.ok) {
-        alert("Veículo cadastrado com sucesso!");
-      } else {
-        alert("Erro ao cadastrar veículo!");
+        if (response.ok) {
+          alert("Veículo cadastrado com sucesso!");
+          
+          carregarVeiculos();
+          limparCampos();
+        } else {
+          alert("Erro ao cadastrar veículo!");
+        }
+      }else if(placa.length > 7){
+        alert("A placa do veiculo excede o limite de 7 caracteres!")
+      }else if(ano > anoAtual){
+        alert(`O ano inserido é invalido!`)
       }
     }
-
-    carregarVeiculos();
-    limparCampos();
   });
 
   function atualizarTabela(veiculos) {
