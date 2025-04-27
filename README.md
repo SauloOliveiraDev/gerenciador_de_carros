@@ -15,7 +15,8 @@ Este projeto é um sistema de registro de carros desenvolvido utilizando Node.js
 - Banco de dados MySQL configurado diretamente no Codespaces  
 
 ## 👥 Colaboração  
-Este projeto foi desenvolvido em colaboração. Minhas principais contribuições foram:  
+Este projeto foi desenvolvido em colaboração com Leonardo Santos Bacelar(https://github.com/LeonardoBCL) que foi responsável pelo Desenvolvimento do frontend e estilização das páginas 
+Minhas principais contribuições foram:  
 - Desenvolvimento do backend utilizando Node.js e Express  
 - Configuração e integração do banco de dados MySQL  
 - Implementação da conexão entre o backend e o frontend  
