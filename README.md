@@ -29,7 +29,7 @@ Outros desenvolvedores contribuíram com a criação do frontend e a estilizaç�
 - git clone https://github.com/seuusuario/nome-do-projeto.git
 2. Instale as dependências:  
 - npm install
-3. Ative o servidor MySql (o banco de dados se criara automaticamente ao iniciar o sistema, o código de criação do banco está no arquivo `src/database/criacao_db.sql`.).
+3. Ative o servidor MySql (o banco de dados se criara automaticamente ao iniciar o sistema, o código de criação do banco está no arquivo `src/database/criacao_db.sql`).
 - Caso esteja executando o código no CodeSpace ou em um sistema Linux utilize o camando " sudo service mysql restart " no terminal para iniciar o servidor MySql.
 - Caso seja em um sistema windowns pode utilizar softwares como o Xampp para iniciar o servidor MySql.
 4. Execute o servidor:
