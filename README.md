@@ -25,8 +25,8 @@ Minhas principais contribuições foram:
 
 ## 🚀 Como Executar
 
-1. Clone o repositório:
-
+1. Clone o repositório ou execute o projeto pelo CodeSpace:
+- Código para clonagem do repositório:
 ```
 git clone https://github.com/SauloOliveiraDev/gerenciador_de_carros.git
 ```
