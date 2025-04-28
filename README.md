@@ -28,7 +28,7 @@ Minhas principais contribuições foram:
 1. Clone o repositório:
 
 ```
-git clone https://github.com/seuusuario/nome-do-projeto.git
+git clone https://github.com/SauloOliveiraDev/gerenciador_de_carros.git
 ```
 
 2. Instale as dependências:
